@@ -6,7 +6,7 @@ pipeline {
    
      stage('Install Dependencies') { 
         steps { 
-           sh 'echo "installing dependencies...' 
+           sh 'echo "installing dependencies..."' 
            sh 'ls -la' 
         }
      }
