@@ -1,21 +1,28 @@
-node('master') {
-	checkout scm
-	
-	stage('Build') {
-		withMaven(maven: 'M3'){
-			if (isUnix()){
-				sh 'mvn -Dmaven.test.failure.ignore clean package'
-			}
-			else {
-				bat 'mvn -Dmaven.test.failure.ignore clean package'
-			}
-		}
-	}
+pipeline { 
+  
+   agent any
 
-	stage('Results') {
-			
-			junit '**/target/surefire-reports/TEST-*.xml'
-			archive 'target/*.jar'
-	}
+   stages {
+   
+     stage('Install Dependencies') { 
+        steps { 
+           sh 'npm install' 
+        }
+     }
+     
+     stage('Test') { 
+        steps { 
+           sh 'echo "testing application..."'
+        }
+      }
 
-}
+         stage("Deploy application") { 
+         steps { 
+           sh 'echo "deploying application..."'
+         }
+
+     }
+  
+   	}
+
+   }
